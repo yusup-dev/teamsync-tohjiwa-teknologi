@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div th:insert="~{dashboard/only.html}" > </div>
+    index of dashboard
+
+    <form method="post" th:action="@{./a}" class="inline">
+        <input type="hidden" name="pwsId" value="12345578642">
+        <button type="submit" name="submit_param" value="submit_value" class="link-button">
+            This is a link that sends a POST request
+        </button>
+    </form>
+
+    <br>
+
+    <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>
+    <form name="logoutForm" th:action="@{./logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out" />
+    </form>
+
+</body>
+</html>
+
+<style>
+    .inline {
+display: inline;
+}
+
+.link-button {
+background: none;
+border: none;
+color: blue;
+text-decoration: underline;
+cursor: pointer;
+font-size: 1em;
+font-family: serif;
+}
+.link-button:focus {
+outline: none;
+}
+.link-button:active {
+color:red;
+}
+</style>

@@ -1,0 +1,748 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{dashboard/layout}">
+
+<th:block layout:fragment="pagetitle">
+	<!--page title-->
+	<div th:replace="~{dashboard/partials/title-meta :: title-meta('Profile Settings')}"></div>
+</th:block>
+
+<head>
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="position-relative mx-n4 mt-n4">
+			<div class="profile-wid-bg profile-setting-img">
+				<img src="/dashboard/assets/images/profile-bg.jpg" class="profile-wid-img" alt="">
+				<div class="overlay-content">
+					<div class="text-end p-3">
+						<div class="p-0 ms-auto rounded-circle profile-photo-edit">
+							<input id="profile-foreground-img-file-input" type="file"
+								class="profile-foreground-img-file-input">
+							<label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
+								<i class="ri-image-edit-line align-bottom me-1"></i> Change Cover
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xxl-3">
+				<div class="card mt-n5">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+								<img src="/dashboard/assets/images/users/user-dummy-img.jpg"
+									class="rounded-circle avatar-xl img-thumbnail user-profile-image"
+									alt="user-profile-image">
+								<div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+									<input id="profile-img-file-input" type="file" class="profile-img-file-input">
+									<label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+										<span class="avatar-title rounded-circle bg-light text-body">
+											<i class="ri-camera-fill"></i>
+										</span>
+									</label>
+								</div>
+							</div>
+							<h5 class="fs-16 mb-1" th:text="${user?.firstName + ' ' + user?.lastName}">{Name}</h5>
+							<p class="text-muted mb-0" th:text="${user?.designation}">{Designation}</p>
+						</div>
+					</div>
+				</div>
+				<!--end card-->
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex align-items-center mb-5">
+							<div class="flex-grow-1">
+								<h5 class="card-title mb-0">Complete Your Profile</h5>
+							</div>
+							<div class="flex-shrink-0">
+								<a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i
+										class="ri-edit-box-line align-bottom me-1"></i> Edit</a>
+							</div>
+						</div>
+						<div class="progress animated-progress custom-progress progress-label">
+							<div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30"
+								aria-valuemin="0" aria-valuemax="100">
+								<div class="label">30%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--end col-->
+			<div class="col-xxl-9">
+				<div class="card mt-xxl-n5">
+					<div class="card-header">
+						<ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab">
+									<i class="fas fa-home"></i> Personal Details
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
+									<i class="far fa-user"></i> Change Password
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-bs-toggle="tab" href="#privacy" role="tab">
+									<i class="far fa-envelope"></i> Privacy Policy
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="card-body p-4">
+						<div class="tab-content">
+							<div class="tab-pane active" id="personalDetails" role="tabpanel">
+
+								<div th:if="${success}">
+									<!-- Success Alert -->
+									<div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show" role="alert">
+										<i class="ri-check-line label-icon"></i><strong>Success</strong> -
+										<span th:text="${message}">{message}</span>
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
+								</div>
+
+								<div th:if="${success == false}">
+									<!-- Success Alert -->
+									<div class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show" role="alert">
+										<i class="ri-error-warning-line label-icon"></i><strong>Error</strong> -
+										<span th:text="${message}">{message}</span>
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
+								</div>
+
+								<form th:action="@{/dashboard/pages/pages-profile-settings}" method="POST" id="myForm">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="mb-3">
+												<label for="firstName" class="form-label">First Name</label>
+												<input type="text" class="form-control" id="firstName" name="firstName"
+													placeholder="Enter your firstname" th:value="${user?.firstName}">
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-6">
+											<div class="mb-3">
+												<label for="lastName" class="form-label">Last Name</label>
+												<input type="text" class="form-control" id="lastName" name="lastName"
+													placeholder="Enter your lastname" th:value="${user?.lastName}">
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-3">
+											<div class="mb-3">
+                                                <label class="form-label" for="phoneNumberCountryCode">Country Code</label>
+                                                <select class="form-control" data-choices id="phoneNumberCountryCode" name="phoneNumberCountryCode" th:field="*{user.phoneNumberCountryCode}">
+                                                    <option value="+93">Afghanistan (+93)</option>
+                                                    <option value="+355">Albania (+355)</option>
+                                                    <option value="+213">Algeria (+213)</option>
+                                                    <option value="+376">Andorra (+376)</option>
+                                                    <option value="+244">Angola (+244)</option>
+                                                    <option value="+1-268">Antigua and Barbuda (+1-268)</option>
+                                                    <option value="+54">Argentina (+54)</option>
+                                                    <option value="+374">Armenia (+374)</option>
+                                                    <option value="+297">Aruba (+297)</option>
+                                                    <option value="+61">Australia (+61)</option>
+                                                    <option value="+43">Austria (+43)</option>
+                                                    <option value="+994">Azerbaijan (+994)</option>
+                                                    <option value="+1-242">Bahamas (+1-242)</option>
+                                                    <option value="+973">Bahrain (+973)</option>
+                                                    <option value="+880">Bangladesh (+880)</option>
+                                                    <option value="+1-246">Barbados (+1-246)</option>
+                                                    <option value="+375">Belarus (+375)</option>
+                                                    <option value="+32">Belgium (+32)</option>
+                                                    <option value="+501">Belize (+501)</option>
+                                                    <option value="+229">Benin (+229)</option>
+                                                    <option value="+1-441">Bermuda (+1-441)</option>
+                                                    <option value="+975">Bhutan (+975)</option>
+                                                    <option value="+591">Bolivia (+591)</option>
+                                                    <option value="+387">Bosnia and Herzegovina (+387)</option>
+                                                    <option value="+267">Botswana (+267)</option>
+                                                    <option value="+55">Brazil (+55)</option>
+                                                    <option value="+673">Brunei (+673)</option>
+                                                    <option value="+359">Bulgaria (+359)</option>
+                                                    <option value="+226">Burkina Faso (+226)</option>
+                                                    <option value="+257">Burundi (+257)</option>
+                                                    <option value="+855">Cambodia (+855)</option>
+                                                    <option value="+237">Cameroon (+237)</option>
+                                                    <option value="+1">Canada (+1)</option>
+                                                    <option value="+238">Cabo Verde (+238)</option>
+                                                    <option value="+1-345">Cayman Islands (+1-345)</option>
+                                                    <option value="+236">Central African Republic (+236)</option>
+                                                    <option value="+235">Chad (+235)</option>
+                                                    <option value="+56">Chile (+56)</option>
+                                                    <option value="+86">China (+86)</option>
+                                                    <option value="+61">Christmas Island (+61)</option>
+                                                    <option value="+61">Cocos (Keeling) Islands (+61)</option>
+                                                    <option value="+57">Colombia (+57)</option>
+                                                    <option value="+269">Comoros (+269)</option>
+                                                    <option value="+242">Congo (Congo-Brazzaville) (+242)</option>
+                                                    <option value="+243">Congo (Congo-Kinshasa) (+243)</option>
+                                                    <option value="+682">Cook Islands (+682)</option>
+                                                    <option value="+506">Costa Rica (+506)</option>
+                                                    <option value="+225">Cote d'Ivoire (+225)</option>
+                                                    <option value="+385">Croatia (+385)</option>
+                                                    <option value="+53">Cuba (+53)</option>
+                                                    <option value="+599">Curacao (+599)</option>
+                                                    <option value="+357">Cyprus (+357)</option>
+                                                    <option value="+420">Czechia (Czech Republic) (+420)</option>
+                                                    <option value="+45">Denmark (+45)</option>
+                                                    <option value="+253">Djibouti (+253)</option>
+                                                    <option value="+1-767">Dominica (+1-767)</option>
+                                                    <option value="+1-809">Dominican Republic (+1-809)</option>
+                                                    <option value="+593">Ecuador (+593)</option>
+                                                    <option value="+20">Egypt (+20)</option>
+                                                    <option value="+503">El Salvador (+503)</option>
+                                                    <option value="+240">Equatorial Guinea (+240)</option>
+                                                    <option value="+291">Eritrea (+291)</option>
+                                                    <option value="+372">Estonia (+372)</option>
+                                                    <option value="+251">Ethiopia (+251)</option>
+                                                    <option value="+500">Falkland Islands (+500)</option>
+                                                    <option value="+298">Faroe Islands (+298)</option>
+                                                    <option value="+679">Fiji (+679)</option>
+                                                    <option value="+358">Finland (+358)</option>
+                                                    <option value="+33">France (+33)</option>
+                                                    <option value="+594">French Guiana (+594)</option>
+                                                    <option value="+689">French Polynesia (+689)</option>
+                                                    <option value="+241">Gabon (+241)</option>
+                                                    <option value="+220">Gambia (+220)</option>
+                                                    <option value="+995">Georgia (+995)</option>
+                                                    <option value="+49">Germany (+49)</option>
+                                                    <option value="+233">Ghana (+233)</option>
+                                                    <option value="+350">Gibraltar (+350)</option>
+                                                    <option value="+30">Greece (+30)</option>
+                                                    <option value="+299">Greenland (+299)</option>
+                                                    <option value="+1-473">Grenada (+1-473)</option>
+                                                    <option value="+590">Guadeloupe (+590)</option>
+                                                    <option value="+1-671">Guam (+1-671)</option>
+                                                    <option value="+502">Guatemala (+502)</option>
+                                                    <option value="+44">Guernsey (+44)</option>
+                                                    <option value="+224">Guinea (+224)</option>
+                                                    <option value="+245">Guinea-Bissau (+245)</option>
+                                                    <option value="+592">Guyana (+592)</option>
+                                                    <option value="+509">Haiti (+509)</option>
+                                                    <option value="+504">Honduras (+504)</option>
+                                                    <option value="+852">Hong Kong (+852)</option>
+                                                    <option value="+36">Hungary (+36)</option>
+                                                    <option value="+354">Iceland (+354)</option>
+                                                    <option value="+91">India (+91)</option>
+                                                    <option value="+62">Indonesia (+62)</option>
+                                                    <option value="+98">Iran (+98)</option>
+                                                    <option value="+964">Iraq (+964)</option>
+                                                    <option value="+353">Ireland (+353)</option>
+                                                    <option value="+44">Isle of Man (+44)</option>
+                                                    <option value="+972">Israel (+972)</option>
+                                                    <option value="+39">Italy (+39)</option>
+                                                    <option value="+1-876">Jamaica (+1-876)</option>
+                                                    <option value="+81">Japan (+81)</option>
+                                                    <option value="+44">Jersey (+44)</option>
+                                                    <option value="+962">Jordan (+962)</option>
+                                                    <option value="+7">Kazakhstan (+7)</option>
+                                                    <option value="+254">Kenya (+254)</option>
+                                                    <option value="+686">Kiribati (+686)</option>
+                                                    <option value="+383">Kosovo (+383)</option>
+                                                    <option value="+965">Kuwait (+965)</option>
+                                                    <option value="+996">Kyrgyzstan (+996)</option>
+                                                    <option value="+856">Laos (+856)</option>
+                                                    <option value="+371">Latvia (+371)</option>
+                                                    <option value="+961">Lebanon (+961)</option>
+                                                    <option value="+266">Lesotho (+266)</option>
+                                                    <option value="+231">Liberia (+231)</option>
+                                                    <option value="+218">Libya (+218)</option>
+                                                    <option value="+423">Liechtenstein (+423)</option>
+                                                    <option value="+370">Lithuania (+370)</option>
+                                                    <option value="+352">Luxembourg (+352)</option>
+                                                    <option value="+853">Macau (+853)</option>
+                                                    <option value="+261">Madagascar (+261)</option>
+                                                    <option value="+265">Malawi (+265)</option>
+                                                    <option value="+60">Malaysia (+60)</option>
+                                                    <option value="+960">Maldives (+960)</option>
+                                                    <option value="+223">Mali (+223)</option>
+                                                    <option value="+356">Malta (+356)</option>
+                                                    <option value="+692">Marshall Islands (+692)</option>
+                                                    <option value="+596">Martinique (+596)</option>
+                                                    <option value="+222">Mauritania (+222)</option>
+                                                    <option value="+230">Mauritius (+230)</option>
+                                                    <option value="+262">Mayotte (+262)</option>
+                                                    <option value="+52">Mexico (+52)</option>
+                                                    <option value="+691">Micronesia (+691)</option>
+                                                    <option value="+373">Moldova (+373)</option>
+                                                    <option value="+377">Monaco (+377)</option>
+                                                    <option value="+976">Mongolia (+976)</option>
+                                                    <option value="+382">Montenegro (+382)</option>
+                                                    <option value="+1-664">Montserrat (+1-664)</option>
+                                                    <option value="+212">Morocco (+212)</option>
+                                                    <option value="+258">Mozambique (+258)</option>
+                                                    <option value="+95">Myanmar (Burma) (+95)</option>
+                                                    <option value="+264">Namibia (+264)</option>
+                                                    <option value="+674">Nauru (+674)</option>
+                                                    <option value="+977">Nepal (+977)</option>
+                                                    <option value="+31">Netherlands (+31)</option>
+                                                    <option value="+599">Netherlands Antilles (+599)</option>
+                                                    <option value="+687">New Caledonia (+687)</option>
+                                                    <option value="+64">New Zealand (+64)</option>
+                                                    <option value="+505">Nicaragua (+505)</option>
+                                                    <option value="+227">Niger (+227)</option>
+                                                    <option value="+234">Nigeria (+234)</option>
+                                                    <option value="+683">Niue (+683)</option>
+                                                    <option value="+672">Norfolk Island (+672)</option>
+                                                    <option value="+1-670">Northern Mariana Islands (+1-670)</option>
+                                                    <option value="+850">North Korea (+850)</option>
+                                                    <option value="+47">Norway (+47)</option>
+                                                    <option value="+968">Oman (+968)</option>
+                                                    <option value="+92">Pakistan (+92)</option>
+                                                    <option value="+680">Palau (+680)</option>
+                                                    <option value="+970">Palestinian Territories (+970)</option>
+                                                    <option value="+507">Panama (+507)</option>
+                                                    <option value="+675">Papua New Guinea (+675)</option>
+                                                    <option value="+595">Paraguay (+595)</option>
+                                                    <option value="+51">Peru (+51)</option>
+                                                    <option value="+63">Philippines (+63)</option>
+                                                    <option value="+870">Pitcairn Islands (+870)</option>
+                                                    <option value="+48">Poland (+48)</option>
+                                                    <option value="+351">Portugal (+351)</option>
+                                                    <option value="+1-787">Puerto Rico (+1-787)</option>
+                                                    <option value="+974">Qatar (+974)</option>
+                                                    <option value="+262">Reunion (+262)</option>
+                                                    <option value="+40">Romania (+40)</option>
+                                                    <option value="+7">Russia (+7)</option>
+                                                    <option value="+250">Rwanda (+250)</option>
+                                                    <option value="+290">Saint Helena (+290)</option>
+                                                    <option value="+1-869">Saint Kitts and Nevis (+1-869)</option>
+                                                    <option value="+1-758">Saint Lucia (+1-758)</option>
+                                                    <option value="+508">Saint Pierre and Miquelon (+508)</option>
+                                                    <option value="+1-784">Saint Vincent and the Grenadines (+1-784)</option>
+                                                    <option value="+685">Samoa (+685)</option>
+                                                    <option value="+378">San Marino (+378)</option>
+                                                    <option value="+239">Sao Tome and Principe (+239)</option>
+                                                    <option value="+966">Saudi Arabia (+966)</option>
+                                                    <option value="+221">Senegal (+221)</option>
+                                                    <option value="+381">Serbia (+381)</option>
+                                                    <option value="+248">Seychelles (+248)</option>
+                                                    <option value="+232">Sierra Leone (+232)</option>
+                                                    <option value="+65">Singapore (+65)</option>
+                                                    <option value="+421">Slovakia (+421)</option>
+                                                    <option value="+386">Slovenia (+386)</option>
+                                                    <option value="+677">Solomon Islands (+677)</option>
+                                                    <option value="+252">Somalia (+252)</option>
+                                                    <option value="+27">South Africa (+27)</option>
+                                                    <option value="+82">South Korea (+82)</option>
+                                                    <option value="+211">South Sudan (+211)</option>
+                                                    <option value="+34">Spain (+34)</option>
+                                                    <option value="+94">Sri Lanka (+94)</option>
+                                                    <option value="+249">Sudan (+249)</option>
+                                                    <option value="+597">Suriname (+597)</option>
+                                                    <option value="+47">Svalbard and Jan Mayen (+47)</option>
+                                                    <option value="+46">Sweden (+46)</option>
+                                                    <option value="+41">Switzerland (+41)</option>
+                                                    <option value="+963">Syria (+963)</option>
+                                                    <option value="+886">Taiwan (+886)</option>
+                                                    <option value="+992">Tajikistan (+992)</option>
+                                                    <option value="+255">Tanzania (+255)</option>
+                                                    <option value="+66">Thailand (+66)</option>
+                                                    <option value="+670">Timor-Leste (+670)</option>
+                                                    <option value="+228">Togo (+228)</option>
+                                                    <option value="+690">Tokelau (+690)</option>
+                                                    <option value="+676">Tonga (+676)</option>
+                                                    <option value="+1-868">Trinidad and Tobago (+1-868)</option>
+                                                    <option value="+216">Tunisia (+216)</option>
+                                                    <option value="+90">Turkey (+90)</option>
+                                                    <option value="+993">Turkmenistan (+993)</option>
+                                                    <option value="+1-649">Turks and Caicos Islands (+1-649)</option>
+                                                    <option value="+688">Tuvalu (+688)</option>
+                                                    <option value="+1-340">U.S. Virgin Islands (+1-340)</option>
+                                                    <option value="+256">Uganda (+256)</option>
+                                                    <option value="+380">Ukraine (+380)</option>
+                                                    <option value="+971">United Arab Emirates (+971)</option>
+                                                    <option value="+44">United Kingdom (+44)</option>
+                                                    <option value="+1">United States (+1)</option>
+                                                    <option value="+598">Uruguay (+598)</option>
+                                                    <option value="+998">Uzbekistan (+998)</option>
+                                                    <option value="+678">Vanuatu (+678)</option>
+                                                    <option value="+379">Vatican City (+379)</option>
+                                                    <option value="+58">Venezuela (+58)</option>
+                                                    <option value="+84">Vietnam (+84)</option>
+                                                    <option value="+681">Wallis and Futuna (+681)</option>
+                                                    <option value="+212">Western Sahara (+212)</option>
+                                                    <option value="+967">Yemen (+967)</option>
+                                                    <option value="+260">Zambia (+260)</option>
+                                                    <option value="+263">Zimbabwe (+263)</option>
+                                                </select>
+											</div>
+										</div>
+										<div class="col-lg-3">
+											<div class="mb-3">
+												<label for="phoneNumber" class="form-label">Phone Number</label>
+												<input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+													   placeholder="Enter your phone number" th:value="${user?.phoneNumber}">
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-6">
+											<div class="mb-3">
+												<label for="emailInput" class="form-label">Email Address</label>
+												<input type="email" class="form-control" id="emailInput" disabled
+													placeholder="Enter your email" th:value="${user?.email}">
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-12">
+											<div class="mb-3">
+												<label for="skills" class="form-label">Skills</label>
+												<input class="form-control" id="skills" name="skills"
+													   data-choices data-choices-limit="8"
+													   data-choices-removeItem data-choices-text-unique-true
+													   data-choices-multiple-groups="true" multiple
+													   type="text"
+													   th:value="${user?.skills}" />
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="company" class="form-label">Company</label>
+												<input type="text" class="form-control" id="company" name="company"
+													   placeholder="Company" th:value="${user?.company}" />
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="designation" class="form-label">Designation</label>
+												<input type="text" class="form-control" id="designation" name="designation"
+													placeholder="Designation" th:value="${user?.designation}" />
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="url" class="form-label">Url</label>
+												<input type="text" class="form-control" id="url" name="url"
+													placeholder="www.example.com" th:value="${user?.url}" />
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="city" class="form-label">City</label>
+												<input type="text" class="form-control" id="city" name="city"
+													placeholder="City" th:value="${user?.city}" />
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="country" class="form-label">Country</label>
+												<input type="text" class="form-control" id="country" name="country"
+													placeholder="Country" th:value="${user?.country}" />
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="zipCode" class="form-label">Zip Code</label>
+												<input type="text" class="form-control" minlength="5" maxlength="6"
+													id="zipCode" name="zipCode" placeholder="Enter zipcode" th:value="${user?.zipCode}" />
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-12">
+											<div class="mb-3 pb-2">
+												<label for="bio"
+													class="form-label">Description</label>
+												<textarea class="form-control" id="bio" name="bio"
+													placeholder="Enter your description"
+													rows="3" th:text="${user?.bio}">
+													This is Bio
+												</textarea>
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-12">
+											<div class="hstack gap-2 justify-content-end">
+												<button type="submit" class="btn btn-primary">Updates</button>
+												<button type="button" class="btn btn-soft-success">Cancel</button>
+											</div>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</form>
+							</div>
+							<!--end tab-pane-->
+							<div class="tab-pane" id="changePassword" role="tabpanel">
+								<form action="javascript:void(0);">
+									<div class="row g-2">
+										<div class="col-lg-4">
+											<div>
+												<label for="oldpasswordInput" class="form-label">Old Password*</label>
+												<input type="password" class="form-control" id="oldpasswordInput"
+													placeholder="Enter current password">
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div>
+												<label for="newpasswordInput" class="form-label">New Password*</label>
+												<input type="password" class="form-control" id="newpasswordInput"
+													placeholder="Enter new password">
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-4">
+											<div>
+												<label for="confirmpasswordInput" class="form-label">Confirm
+													Password*</label>
+												<input type="password" class="form-control" id="confirmpasswordInput"
+													placeholder="Confirm password">
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-12">
+											<div class="mb-3">
+												<a href="javascript:void(0);"
+													class="link-primary text-decoration-underline">Forgot Password ?</a>
+											</div>
+										</div>
+										<!--end col-->
+										<div class="col-lg-12">
+											<div class="text-end">
+												<button type="submit" class="btn btn-success">Change Password</button>
+											</div>
+										</div>
+										<!--end col-->
+									</div>
+									<!--end row-->
+								</form>
+								<div class="mt-4 mb-3 border-bottom pb-2">
+									<div class="float-end">
+										<a href="javascript:void(0);" class="link-primary">All Logout</a>
+									</div>
+									<h5 class="card-title">Login History</h5>
+								</div>
+								<div class="d-flex align-items-center mb-3">
+									<div class="flex-shrink-0 avatar-sm">
+										<div class="avatar-title bg-light text-primary rounded-3 fs-18">
+											<i class="ri-smartphone-line"></i>
+										</div>
+									</div>
+									<div class="flex-grow-1 ms-3">
+										<h6>iPhone 12 Pro</h6>
+										<p class="text-muted mb-0">Los Angeles, United States - March 16 at 2:47PM</p>
+									</div>
+									<div>
+										<a href="javascript:void(0);">Logout</a>
+									</div>
+								</div>
+								<div class="d-flex align-items-center mb-3">
+									<div class="flex-shrink-0 avatar-sm">
+										<div class="avatar-title bg-light text-primary rounded-3 fs-18">
+											<i class="ri-tablet-line"></i>
+										</div>
+									</div>
+									<div class="flex-grow-1 ms-3">
+										<h6>Apple iPad Pro</h6>
+										<p class="text-muted mb-0">Washington, United States - November 06 at 10:43AM
+										</p>
+									</div>
+									<div>
+										<a href="javascript:void(0);">Logout</a>
+									</div>
+								</div>
+								<div class="d-flex align-items-center mb-3">
+									<div class="flex-shrink-0 avatar-sm">
+										<div class="avatar-title bg-light text-primary rounded-3 fs-18">
+											<i class="ri-smartphone-line"></i>
+										</div>
+									</div>
+									<div class="flex-grow-1 ms-3">
+										<h6>Galaxy S21 Ultra 5G</h6>
+										<p class="text-muted mb-0">Conneticut, United States - June 12 at 3:24PM</p>
+									</div>
+									<div>
+										<a href="javascript:void(0);">Logout</a>
+									</div>
+								</div>
+								<div class="d-flex align-items-center">
+									<div class="flex-shrink-0 avatar-sm">
+										<div class="avatar-title bg-light text-primary rounded-3 fs-18">
+											<i class="ri-macbook-line"></i>
+										</div>
+									</div>
+									<div class="flex-grow-1 ms-3">
+										<h6>Dell Inspiron 14</h6>
+										<p class="text-muted mb-0">Phoenix, United States - July 26 at 8:10AM</p>
+									</div>
+									<div>
+										<a href="javascript:void(0);">Logout</a>
+									</div>
+								</div>
+							</div>
+							<!--end tab-pane-->
+							<div class="tab-pane" id="privacy" role="tabpanel">
+								<div class="mb-4 pb-2">
+									<h5 class="card-title text-decoration-underline mb-3">Security:</h5>
+									<div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0">
+										<div class="flex-grow-1">
+											<h6 class="fs-14 mb-1">Two-factor Authentication</h6>
+											<p class="text-muted">Two-factor authentication is an enhanced security
+												meansur. Once enabled, you'll be required to give two types of
+												identification when you log into Google Authentication and SMS are
+												Supported.</p>
+										</div>
+										<div class="flex-shrink-0 ms-sm-3">
+											<a href="javascript:void(0);" class="btn btn-sm btn-primary">Enable
+												Two-facor Authentication</a>
+										</div>
+									</div>
+									<div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
+										<div class="flex-grow-1">
+											<h6 class="fs-14 mb-1">Secondary Verification</h6>
+											<p class="text-muted">The first factor is a password and the second commonly
+												includes a text with a code sent to your smartphone, or biometrics using
+												your fingerprint, face, or retina.</p>
+										</div>
+										<div class="flex-shrink-0 ms-sm-3">
+											<a href="javascript:void(0);" class="btn btn-sm btn-primary">Set up
+												secondary method</a>
+										</div>
+									</div>
+									<div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
+										<div class="flex-grow-1">
+											<h6 class="fs-14 mb-1">Backup Codes</h6>
+											<p class="text-muted mb-sm-0">A backup code is automatically generated for
+												you when you turn on two-factor authentication through your iOS or
+												Android Twitter app. You can also generate a backup code on twitter.com.
+											</p>
+										</div>
+										<div class="flex-shrink-0 ms-sm-3">
+											<a href="javascript:void(0);" class="btn btn-sm btn-primary">Generate backup
+												codes</a>
+										</div>
+									</div>
+								</div>
+								<div class="mb-3">
+									<h5 class="card-title text-decoration-underline mb-3">Application Notifications:
+									</h5>
+									<ul class="list-unstyled mb-0">
+										<li class="d-flex">
+											<div class="flex-grow-1">
+												<label for="directMessage" class="form-check-label fs-14">Direct
+													messages</label>
+												<p class="text-muted">Messages from people you follow</p>
+											</div>
+											<div class="flex-shrink-0">
+												<div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox" role="switch"
+														id="directMessage" checked />
+												</div>
+											</div>
+										</li>
+										<li class="d-flex mt-2">
+											<div class="flex-grow-1">
+												<label class="form-check-label fs-14" for="desktopNotification">
+													Show desktop notifications
+												</label>
+												<p class="text-muted">Choose the option you want as your default
+													setting. Block a site: Next to "Not allowed to send notifications,"
+													click Add.</p>
+											</div>
+											<div class="flex-shrink-0">
+												<div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox" role="switch"
+														id="desktopNotification" checked />
+												</div>
+											</div>
+										</li>
+										<li class="d-flex mt-2">
+											<div class="flex-grow-1">
+												<label class="form-check-label fs-14" for="emailNotification">
+													Show email notifications
+												</label>
+												<p class="text-muted"> Under Settings, choose Notifications. Under
+													Select an account, choose the account to enable notifications for.
+												</p>
+											</div>
+											<div class="flex-shrink-0">
+												<div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox" role="switch"
+														id="emailNotification" />
+												</div>
+											</div>
+										</li>
+										<li class="d-flex mt-2">
+											<div class="flex-grow-1">
+												<label class="form-check-label fs-14" for="chatNotification">
+													Show chat notifications
+												</label>
+												<p class="text-muted">To prevent duplicate mobile notifications from the
+													Gmail and Chat apps, in settings, turn off Chat notifications.</p>
+											</div>
+											<div class="flex-shrink-0">
+												<div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox" role="switch"
+														id="chatNotification" />
+												</div>
+											</div>
+										</li>
+										<li class="d-flex mt-2">
+											<div class="flex-grow-1">
+												<label class="form-check-label fs-14" for="purchaesNotification">
+													Show purchase notifications
+												</label>
+												<p class="text-muted">Get real-time purchase alerts to protect yourself
+													from fraudulent charges.</p>
+											</div>
+											<div class="flex-shrink-0">
+												<div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox" role="switch"
+														id="purchaesNotification" />
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div>
+									<h5 class="card-title text-decoration-underline mb-3">Delete This Account:</h5>
+									<p class="text-muted">Go to the Data & Privacy section of your profile Account.
+										Scroll to "Your data & privacy options." Delete your Profile Account. Follow the
+										instructions to delete your account :</p>
+									<div>
+										<input type="password" class="form-control" id="passwordInput"
+											placeholder="Enter your password" value="make@321654987"
+											style="max-width: 265px;">
+									</div>
+									<div class="hstack gap-2 mt-3">
+										<a href="javascript:void(0);" class="btn btn-soft-danger">Close & Delete This
+											Account</a>
+										<a href="javascript:void(0);" class="btn btn-light">Cancel</a>
+									</div>
+								</div>
+							</div>
+							<!--end tab-pane-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end col-->
+		</div>
+		<!--end row-->
+
+	</div>
+
+	<th:block layout:fragment="pagejs">
+
+		<!-- profile-setting init js -->
+		<script src="/dashboard/assets/js/pages/profile-setting.init.js"></script>
+	</th:block>
+</body>
+
+</html>

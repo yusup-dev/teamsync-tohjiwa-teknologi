@@ -1,0 +1,26 @@
+meta {
+  name: get time logs weekly
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/report/time-logs/weekly?offset=8&pwsId=-1
+  body: none
+  auth: bearer
+}
+
+query {
+  offset: 8
+  pwsId: -1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+tests {
+  // pm.test("Status code is 200", function () {
+  //     pm.response.to.have.status(200);
+  // });
+}

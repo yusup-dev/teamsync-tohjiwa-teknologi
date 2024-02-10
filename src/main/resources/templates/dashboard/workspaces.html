@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/layout/layout-workspace}">
+
+<th:block layout:fragment="pagetitle">
+  <!--page title-->
+  <div th:replace="~{dashboard/partials/title-meta :: title-meta('Workspace')}"></div>
+</th:block>
+
+<head>
+</head>
+
+<body>
+<div layout:fragment="content">
+  <!-- start page title -->
+  <div th:replace="~{dashboard/partials/page-title :: page-title('Workspace','Pages')}"></div>
+
+  <form method="post" th:action="@{./workspaces}" class="inline">
+    <input type="hidden" name="pwsId" value="12345578642">
+    <button type="submit" name="submit_param" value="submit_value" class="link-button">
+      Workspace 1010
+    </button>
+  </form>
+
+  </br>
+
+  <form method="post" th:action="@{./workspaces}" class="inline">
+    <input type="hidden" name="pwsId" value="12345578642">
+    <button type="submit" name="submit_param" value="submit_value" class="link-button">
+      Workspace 1011
+    </button>
+  </form>
+
+</div>
+
+<th:block layout:fragment="pagejs">
+</th:block>
+</body>
+
+</html>

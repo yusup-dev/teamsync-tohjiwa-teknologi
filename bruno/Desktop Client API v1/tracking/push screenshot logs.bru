@@ -1,0 +1,32 @@
+meta {
+  name: push screenshot logs
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/tracking/screenshot-logs
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "createdDate": 1674900000000,
+      "userId": -1,
+      "pwsId": -1,
+      "pwsProjectId": -1,
+      "pwsTaskId": -1,
+      "filename": "sas.jpg"
+  }
+}
+
+tests {
+  // pm.test("Status code is 200", function () {
+  //     pm.response.to.have.status(200);
+  // });
+}

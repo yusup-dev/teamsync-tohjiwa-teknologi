@@ -1,0 +1,26 @@
+meta {
+  name: get pws setting hash
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/pws/setting/hash?pwsId=-1
+  body: none
+  auth: bearer
+}
+
+query {
+  pwsId: -1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+tests {
+   test("Status code is 200", function () {
+       const data = res.getBody();
+      expect(res.getStatus()).to.equal(200);
+   });
+}

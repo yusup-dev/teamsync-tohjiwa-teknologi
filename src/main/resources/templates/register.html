@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${success}">
+    Your registration process successfully
+</div>
+<div th:if="${success!=null && !success}">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+
+<form th:action="@{/register}" method="post">
+    <div><label> First Name : <input type="text" name="firstname"/> </label></div>
+    <div><label> Last Name : <input type="text" name="lastname"/> </label></div>
+    <div><label> Email : <input type="text" name="email"/> </label></div>
+    <div><label> Password : <input type="password" name="password"/> </label></div>
+    <div><input type="submit" value="Sign up"/></div>
+</form>
+</body>
+</html>

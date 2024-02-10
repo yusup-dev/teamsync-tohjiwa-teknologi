@@ -1,0 +1,27 @@
+meta {
+  name: delete task
+  type: http
+  seq: 7
+}
+
+delete {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/projects/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "id": -1
+  }
+}
+
+tests {
+  // pm.test("Status code is 400", function () {
+  //     pm.response.to.have.status(400);
+  // });
+}

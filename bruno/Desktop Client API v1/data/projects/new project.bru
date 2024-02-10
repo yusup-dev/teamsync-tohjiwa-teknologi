@@ -1,0 +1,25 @@
+meta {
+  name: new project
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/projects
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "userId": -1,
+      "pwsId": -1,
+      "name": "Ayo kita makan nasi goreng di amla",
+      "description": "Ayo kita makan nasi goreng di amla",
+      "source": "DESKTOP_APP_CLIENT"
+  }
+}

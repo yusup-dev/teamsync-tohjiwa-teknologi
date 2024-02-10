@@ -1,0 +1,23 @@
+meta {
+  name: update task
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/projects/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "id": -1,
+      "name": "Mari kita masak daluman",
+      "description": "Membuat minuman daluman yang enak dan segar"
+  }
+}

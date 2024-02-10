@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn install
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      # move the jar (by wildcard, agnostic to its name) to top level app.jar
+      - mv target/*.jar app.jar
+cache:
+  paths:
+    - '/root/.m2/**/*'
+artifacts:
+  files:
+    - # publish the now top level app.jar as the artifact
+    - app.jar
+    - .ebextensions/**/*

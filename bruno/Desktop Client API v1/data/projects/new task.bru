@@ -1,0 +1,26 @@
+meta {
+  name: new task
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/projects/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "userId": -1,
+      "pwsId": -1,
+      "pwsProjectId": -1,
+      "name": "Makan malam yang enak",
+      "description": "Makan malam yang luar biasa enak",
+      "source": "DESKTOP_APP_CLIENT"
+  }
+}

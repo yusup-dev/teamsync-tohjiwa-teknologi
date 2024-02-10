@@ -1,0 +1,22 @@
+meta {
+  name: get project
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/projects?lpuT=1670545564000&ltuT=1670545564000&q=0&pwsId=-1
+  body: none
+  auth: bearer
+}
+
+query {
+  lpuT: 1670545564000
+  ltuT: 1670545564000
+  q: 0
+  pwsId: -1
+}
+
+auth:bearer {
+  token: {{token}}
+}

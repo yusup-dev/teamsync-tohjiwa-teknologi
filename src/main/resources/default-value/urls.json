@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Facebook",
+    "domain": "facebook.com",
+    "url": "",
+    "urlCategoryId": 1,
+    "productivityStatus": "UNPRODUCTIVE"
+  },
+  {
+    "id": 2,
+    "name": "Google",
+    "domain": "google.com",
+    "url": "",
+    "urlCategoryId": 1,
+    "productivityStatus": "PRODUCTIVE"
+  }
+]

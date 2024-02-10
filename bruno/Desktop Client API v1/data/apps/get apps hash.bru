@@ -1,0 +1,25 @@
+meta {
+  name: get apps hash
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/apps/hash?pwsId=-1
+  body: none
+  auth: bearer
+}
+
+query {
+  pwsId: -1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+tests {
+  // pm.test("Status code is 200", function () {
+  //     pm.response.to.have.status(200);
+  // });
+}

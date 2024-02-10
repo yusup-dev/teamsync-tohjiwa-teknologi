@@ -1,0 +1,28 @@
+meta {
+  name: get time logs between
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/report/time-logs/between?dateStart=2022-12-01&dateEnd=2023-12-31&offset=8&pwsId=-1
+  body: none
+  auth: bearer
+}
+
+query {
+  dateStart: 2022-12-01
+  dateEnd: 2023-12-31
+  offset: 8
+  pwsId: -1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+tests {
+  // pm.test("Status code is 200", function () {
+  //     pm.response.to.have.status(200);
+  // });
+}

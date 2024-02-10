@@ -1,0 +1,23 @@
+meta {
+  name: update project
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/projects
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "id": -1,
+      "name": "Default",
+      "description": "Project untuk mencapai kesuksesan"
+  }
+}

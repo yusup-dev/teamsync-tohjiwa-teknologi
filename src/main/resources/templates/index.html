@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Console</title>
+</head>
+<body>
+Index Time Tracker Console </br>
+<a href="/dashboard/">Go to Dashboard here</a>
+
+<h1 th:text="${message}"></h1>
+<div id="app">{{ message }}</div>
+<div id="app1">
+    <button @click="increment">count is: {{ count }}</button>
+</div>
+
+</body>
+</html>
+
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script>
+    const {createApp, ref} = Vue
+
+    createApp({
+        setup() {
+            const message = ref('Hello vue!')
+            return {
+                message
+            }
+        }
+    }).mount('#app')
+</script>
+
+<script type="module">
+    const {createApp, ref} = Vue
+
+    createApp({
+        setup() {
+            const count = ref(0)
+
+            function increment() {
+                count.value++;
+                // URL yang akan diambil data dari sana
+                const apiUrl = '/dashboard-api/data';
+
+                // Menggunakan fetch untuk melakukan GET request
+                fetch(apiUrl)
+                    .then(response => {
+                        // Memeriksa apakah responsenya sukses (status code 200 OK)
+
+                        console.log(response);
+                        if (!response.ok || response.redirected) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Mengubah responsenya menjadi objek JSON
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Menangani data yang diterima setelah berhasil diambil
+                        console.log('Data:', data);
+                    })
+                    .catch(error => {
+                        // Menangani kesalahan jika terjadi
+                        console.error('There was a problem with the fetch operation:', error.message);
+                    });
+            }
+
+            return {
+                count,
+                increment
+            }
+        }
+    }).mount('#app1')
+</script>

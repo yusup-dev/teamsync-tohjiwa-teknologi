@@ -1,0 +1,38 @@
+meta {
+  name: push activity logs
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/tracking/activity-logs
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  [{
+      "createdDate": 1674900000000,
+      "userId": -1,
+      "pwsId": -1,
+      "pwsProjectId": -1,
+      "pwsTaskId": -1,
+      "sessionStart": 1674900000000,
+      "sessionEnd": 1674900180000,
+      "sessionTotalTime": 180000,
+      "pwsActivityId": 1,
+      "state": {
+          "status": "ACTIVE"
+      }
+  }]
+}
+
+tests {
+  // pm.test("Status code is 200", function () {
+  //     pm.response.to.have.status(200);
+  // });
+}

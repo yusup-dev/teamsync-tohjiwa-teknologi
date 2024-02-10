@@ -1,0 +1,21 @@
+meta {
+  name: get pws available
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/data/pws/available
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+tests {
+  // pm.test("Status code is 200", function () {
+  //     pm.response.to.have.status(200);
+  // });
+}

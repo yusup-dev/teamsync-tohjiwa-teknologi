@@ -1,0 +1,27 @@
+meta {
+  name: get time logs daily
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{host}}:{{port}}/api/client/desktop/v1/report/time-logs/daily?day=2022-12-14&offset=8&pwsId=1
+  body: none
+  auth: bearer
+}
+
+query {
+  day: 2022-12-14
+  offset: 8
+  pwsId: 1
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+tests {
+  // pm.test("Status code is 200", function () {
+  //     pm.response.to.have.status(200);
+  // });
+}

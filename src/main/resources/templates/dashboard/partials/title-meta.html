@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body>
+	<div th:fragment="title-meta(title)" th:remove="tag">
+		<meta charset="utf-8" />
+		<title th:text="${title} + ' - Teamsync'"></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta content="AI powered time tracking" name="description" />
+		<meta content="Teamsync" name="author" />
+		<meta name="color-scheme" content="dark">
+		<!-- App favicon -->
+		<link rel="shortcut icon" href="/dashboard/assets/images/favicon.ico">
+	</div>
+</body>
+
+</html>

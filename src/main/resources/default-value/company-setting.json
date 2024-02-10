@@ -1,0 +1,42 @@
+{
+  "screenshotConfig": {
+    "screenshotPerHour": 30,
+    "autoBlur": "GAUSSIAN"
+  },
+  "activityTrackingConfig": {
+    "activityTracking": "ENABLED"
+  },
+  "appTrackingConfig": {
+    "applicationTracking": "ENABLED"
+  },
+  "urlTrackingConfig": {
+    "urlTracking": "ENABLED"
+  },
+  "addOfflineTimeConfig": {
+    "addOfflineTime": "ENABLED"
+  },
+  "removeTimeConfig": {
+    "removeTime": "ENABLED"
+  },
+  "idleTimeConfig": {
+    "idleTime": "ENABLED",
+    "deleteAfterMinutes": 60
+  },
+  "screenshotNotificationConfig": {
+    "notify": "ENABLED",
+    "playSound": "ENABLED",
+    "appClientSetting": "ALLOWED"
+  },
+  "desktopAppAutostartConfig": {
+    "desktopAppAutostart": "DISABLED"
+  },
+  "taskConfig": {
+    "addTask": "ENABLED"
+  },
+  "ipAddressConfig": {
+    "trackIpAddress": "ENABLED"
+  },
+  "timesSheetsConfig": {
+    "viewTimesSheets": "ENABLED"
+  }
+}

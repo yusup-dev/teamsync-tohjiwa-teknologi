@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Microsoft Edge",
+    "process": "msedge",
+    "term": "msedge.exe, mikocok",
+    "appCategoryId": 1,
+    "productivityStatus": "PRODUCTIVE"
+  },
+  {
+    "id": 2,
+    "name": "Mozilla Firefox",
+    "process": "firefox",
+    "term": "firefox.exe, mikocok",
+    "appCategoryId": 1,
+    "productivityStatus": "PRODUCTIVE"
+  }
+]
